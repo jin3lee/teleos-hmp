@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<p>Click the button to get your coordinates.</p>
+
+<button onclick="getLocation()">Use current location to get list of nearest offices</button>
+
+<p id="demo"></p>
+
+<script>
+    var x = document.getElementById("demo");
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+
+
+      } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+      }
+    }
+    
+    function showPosition(position) {
+
+
+        // get lat and long
+        var user_lat = position.coords.latitude;
+        var user_long = position.coords.longitude;
+        console.log(user_lat, user_long);
+
+      x.innerHTML = "Latitude: " + position.coords.latitude +
+      "<br>Longitude: " + position.coords.longitude;
+    }
+
+    //This function takes in latitude and longitude of two location and returns the distance between them as the crow flies (in km)
+    function calcCrow(lat1, lon1, lat2, lon2) 
+    {
+      var R = 6371; // km
+      var dLat = toRad(lat2-lat1);
+      var dLon = toRad(lon2-lon1);
+      var lat1 = toRad(lat1);
+      var lat2 = toRad(lat2);
+
+      var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+      var d = R * c;
+      return d;
+    }
+
+    // Converts numeric degrees to radians
+    function toRad(Value) 
+    {
+        return Value * Math.PI / 180;
+    }
+
+    var data = {
+        "Clarksville, TN": { latitutde: 36.57673, longitude: -87.27139 },
+        "Columbia, TN": { latitutde: 35.59798, longitude: -87.0392 },
+        "Corinth, MS": { latitutde: 34.934, longitude: -88.55859 } ,
+        "Dickson, TN": { latitutde: 40.741895, longitude: -73.989308 } ,
+        "Dyersburg, TN": { latitutde: 36.0645121, longitude: -89.3962954 } ,
+        "Florence, AL": { latitutde: 34.8220687, longitude: -87.6564537 } ,
+        "Franklin, TN": { latitutde: 35.94413, longitude: -86.8272644 } ,
+        "Jackson, TN": { latitutde: 35.612545, longitude: -88.835257 } ,
+        "Knoxville, TN": { latitutde: 35.9538879394531, longitude: -83.9831314086914 } ,
+        "Memphis, TN": { latitutde: 35.1121747, longitude: -89.8939381 } ,
+        "Murfreesboro, TN": { latitutde: 35.8618968, longitude: -86.4194207 } ,
+        "Paris, TN": { latitutde: 36.2986106, longitude: -88.3104828 } ,
+        "Russellville, AL": { latitutde: 34.53828, longitude: -87.710647 } ,
+        "Tupelo, MS": { latitutde: 34.2423588, longitude: -88.7131978 }
+    }
+</script>
+
+
+</html>
