@@ -52,21 +52,18 @@
 
                                         for ( let greatGrandChildIndex in grandChild.children ) {
                                             let greatGrandChild = grandChild.children[greatGrandChildIndex];
+                                            
                                             // checks for location button div
                                             if ( greatGrandChild.className == "storerocket-popup-location-button" ) { 
-                                                console.log( "greatGrandChild = ", greatGrandChild );
-
                                                 // if button is "Connect With Us"
                                                 if ( greatGrandChild.innerHTML == "Connect With Us" ) {
                                                     greatGrandChild.classList.add( "trigger-connect" );
                                                 }
 
-
                                                 // if button is "Apply Today"
                                                 if ( greatGrandChild.innerHTML == "Apply Today" ) {
                                                     greatGrandChild.classList.add( "trigger-apply" );
                                                 }
-
                                              }
                                         }
                                     }
