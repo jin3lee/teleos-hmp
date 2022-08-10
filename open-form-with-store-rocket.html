@@ -33,14 +33,57 @@
                   facilityLocationField.disabled = false;
                   facilityLocationField.value = buttonId;
                   facilityLocationField.disabled = true;
-                //   console.log(facilityLocationField);
                   
                   // if last loop is different popup then do the following
                   if ( lastName != child.innerHTML ) 
                       // for every child do something
-                              for( let index in popupChildCollection ) {
-                        let childAgain = popupChildCollection[index];
+                        for( let index in popupChildCollection ) {
+                            let childAgain = popupChildCollection[index];
                         
+                            // get store rocket button group that shows in popup
+                            if ( childAgain.className == "storerocket-popup-buttons" ) {
+
+                                // search for storerocket popup buttons location
+                                for ( let grandChildIndex in childAgain.children ) {
+                                    let grandChild = childAgain.children[grandChildIndex];
+
+                                    // checks for location button div
+                                    if ( grandChild.className == "storerocket-popup-location-buttons" ) {
+
+                                        for ( let greatGrandChildIndex in grandChild.children ) {
+                                            let greatGrandChild = grandChild.children[greatGrandChildIndex];
+                                            // checks for location button div
+                                            if ( greatGrandChild.className == "storerocket-popup-location-button" ) { 
+                                                console.log( "greatGrandChild = ", greatGrandChild );
+
+                                                // if button is "Connect With Us"
+                                                if ( greatGrandChild.innerHTML == "Connect With Us" ) {
+                                                    greatGrandChild.classList.add( "trigger-connect" );
+                                                }
+
+
+                                                // if button is "Apply Today"
+                                                if ( greatGrandChild.innerHTML == "Apply Today" ) {
+                                                    greatGrandChild.classList.add( "trigger-apply" );
+                                                }
+
+                                             }
+                                        }
+                                    }
+                                }
+
+
+                                // div. storerocket-popup-location-buttons
+                                // a. storerocket-popup-location-button
+
+
+                                
+                                // check inner html
+                                // if innerHTML == Connect With Us -> open up modal-connect
+                                
+                                // else innerHTML == Apply Today -> open up modal-apply
+                            }
+
                         // change address to order here
                         /*
                         if( childAgain.className == "storerocket-popup-address" ) {
@@ -69,11 +112,9 @@
     ); 
       
     // click modal
-    function openModal() {
-    //   console.log("modal button pressed");
+    function openModalConnect() {
       let applyButton = document.getElementById("modal-connect");
       document.getElementById("modal-connect").click();
-    //   console.log("modal button ", applyButton);
     }
       
   </script>
