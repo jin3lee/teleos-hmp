@@ -1,6 +1,56 @@
+
+
+
 <script>
     // keeps track of changes
     var lastName = "";
+
+    var srInterval = setInterval(() => {
+
+        var srResults = document.getElementsByClassName("storerocket-result");
+        
+        // if results are found than proceed to add class to buttons
+        if ( srResults.length > 0 ) {
+            for ( let resultIndex = 0; resultIndex < srResults.length; resultIndex++ ) {
+                let child = srResults[resultIndex];
+                
+                // get child - content div
+                for ( let gChildIndex in child.children ) {
+                    let gChild = child.children[gChildIndex];
+
+                    // get sidemenu content
+                    if ( gChild.childNodes ) {
+
+                        let locationName = gChild.children.item(0).innerText;
+                        let buttons = gChild.children.item(5);
+                        
+                        // add class to connect button
+                        let connectButton = buttons.children.item(0);
+                        connectButton.href = "javascript:void(0);";
+                        connectButton.classList.add( "trigger-connect" );
+                        connectButton.addEventListener( 
+                            "click",
+                            ( locationName ) => {
+                                updateLocationOnBothForms(locationName);
+                            }
+                        );
+                        let applyButton = buttons.children.item(1);
+                        applyButton.href = "javascript:void(0);";
+                        applyButton.classList.add( "trigger-connect" );
+                        applyButton.addEventListener( 
+                            "click",
+                            (locationName ) => {
+                                updateLocationOnBothForms(locationName);
+                            }
+                        );
+                    }
+                }
+            }
+
+            // stops the interval
+            clearInterval(srInterval);
+        }
+    }, 100);
     
     // constantly check for store rocket popup
     setInterval(
@@ -28,11 +78,7 @@
                   
                 // if child class x then make button for X
                 if( childClass == "storerocket-popup-name" ) {
-                  let buttonId = child.innerHTML.replace(" - ", "-").replace(/\s+/g, "-");
-                  let buttonClassName = "btn-order-from-here";
-                  facilityLocationField.disabled = false;
-                  facilityLocationField.value = buttonId;
-                  facilityLocationField.disabled = true;
+                  let locationName = child.innerHTML.replace(" - ", "-").replace(/\s+/g, "-");
                   
                   // if last loop is different popup then do the following
                   if ( lastName != child.innerHTML ) 
@@ -54,15 +100,26 @@
                                             let greatGrandChild = grandChild.children[greatGrandChildIndex];
                                             
                                             // checks for location button div
-                                            if ( greatGrandChild.className == "storerocket-popup-location-button" ) { 
+                                            if ( greatGrandChild.className == "storerocket-popup-location-button" ) {     
+                                                console.log("clicked 1.01");
                                                 // if button is "Connect With Us"
                                                 if ( greatGrandChild.innerHTML == "Connect With Us" ) {
+                                                console.log("clicked 1.02");
                                                     greatGrandChild.classList.add( "trigger-connect" );
+                                                console.log("clicked 1.03");
+                                                    greatGrandChild.addEventListener("click", ( locationName )=>{
+                                                        console.log("clicked 1.01");
+                                                        updateLocationOnBothForms(locationName);
+                                                    });
                                                 }
 
                                                 // if button is "Apply Today"
                                                 if ( greatGrandChild.innerHTML == "Apply Today" ) {
                                                     greatGrandChild.classList.add( "trigger-apply" );
+                                                    greatGrandChild.addEventListener("click", ( locationName )=>{
+                                                        console.log("clicked 1");
+                                                        updateLocationOnBothForms(locationName);
+                                                    });
                                                 }
                                              }
                                         }
@@ -112,6 +169,23 @@
     function openModalConnect() {
       let applyButton = document.getElementById("modal-connect");
       document.getElementById("modal-connect").click();
+    }
+
+    function updateLocationOnBothForms( locationName ) {
+        let careerLocationField = document.getElementsByClassName("career-location-field");
+        let contactLocationField = document.getElementsByClassName("contact-location-field");
+        let connectfacilityLocationField = document.getElementById("wpforms-1707-field_14");
+        if( connectfacilityLocationField ) {
+            connectfacilityLocationField.value = locationName;
+            connectfacilityLocationField.disabled = true;
+        }
+        let applyFormfacilityLocationField = document.getElementById("wpforms-1785-field_23");
+        console.log("applyform id", applyFormfacilityLocationField);
+        if( applyFormfacilityLocationField ) {
+            applyFormfacilityLocationField.value = locationName;
+            applyFormfacilityLocationField.disabled = true;
+        }
+        console.log("updateLocationOnBothForms() pressed", locationName);
     }
       
   </script>
