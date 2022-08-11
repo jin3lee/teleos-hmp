@@ -30,16 +30,16 @@
                         connectButton.classList.add( "trigger-connect" );
                         connectButton.addEventListener( 
                             "click",
-                            ( locationName ) => {
+                            () => {
                                 updateLocationOnBothForms(locationName);
                             }
                         );
                         let applyButton = buttons.children.item(1);
                         applyButton.href = "javascript:void(0);";
-                        applyButton.classList.add( "trigger-connect" );
+                        applyButton.classList.add( "trigger-apply" );
                         applyButton.addEventListener( 
                             "click",
-                            (locationName ) => {
+                            () => {
                                 updateLocationOnBothForms(locationName);
                             }
                         );
@@ -101,24 +101,19 @@
                                             
                                             // checks for location button div
                                             if ( greatGrandChild.className == "storerocket-popup-location-button" ) {     
-                                                console.log("clicked 1.01");
                                                 // if button is "Connect With Us"
                                                 if ( greatGrandChild.innerHTML == "Connect With Us" ) {
-                                                console.log("clicked 1.02");
                                                     greatGrandChild.classList.add( "trigger-connect" );
-                                                console.log("clicked 1.03");
-                                                    greatGrandChild.addEventListener("click", ( locationName )=>{
-                                                        console.log("clicked 1.01");
-                                                        updateLocationOnBothForms(locationName);
+                                                    greatGrandChild.addEventListener("click", ()=>{
+                                                        updateLocationOnBothForms( locationName );
                                                     });
                                                 }
 
                                                 // if button is "Apply Today"
                                                 if ( greatGrandChild.innerHTML == "Apply Today" ) {
                                                     greatGrandChild.classList.add( "trigger-apply" );
-                                                    greatGrandChild.addEventListener("click", ( locationName )=>{
-                                                        console.log("clicked 1");
-                                                        updateLocationOnBothForms(locationName);
+                                                    greatGrandChild.addEventListener("click", ()=>{
+                                                        updateLocationOnBothForms( locationName );
                                                     });
                                                 }
                                              }
@@ -180,7 +175,6 @@
             connectfacilityLocationField.disabled = true;
         }
         let applyFormfacilityLocationField = document.getElementById("wpforms-1785-field_23");
-        console.log("applyform id", applyFormfacilityLocationField);
         if( applyFormfacilityLocationField ) {
             applyFormfacilityLocationField.value = locationName;
             applyFormfacilityLocationField.disabled = true;
