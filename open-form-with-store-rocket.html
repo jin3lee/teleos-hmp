@@ -1,10 +1,54 @@
-
-
-
 <script>
+    
+    // updates overlay detail
+    var pastOvelayDetailsName = "";
+    setInterval(() => {
+        let overlayElement = document.getElementsByClassName("storerocket-overlay-details-content");
+
+        // make sure element is not null or empty
+        if ( overlayElement && overlayElement.length > 0 ) {
+            let divContent = overlayElement[0]
+            if ( divContent ) {
+                // get current detail name
+                let currentDetailName = divContent.children.item(0).innerText;
+
+                // check if current contains new detail
+                if ( pastOvelayDetailsName != currentDetailName ) {
+
+                    // grab button container div
+                    let buttonContainerDiv = divContent.children.item(4);
+                    
+                    // set trigger class text for connect with us
+                    let connectButton = buttonContainerDiv.children.item(0);
+                    connectButton.classList.add("trigger-connect");
+                    connectButton.addEventListener( 
+                        "click",
+                        () => {
+                            updateLocationOnBothForms( currentDetailName );
+                        }
+                    );
+
+                    // set trigger class text for connect with us
+                    let applyButton = buttonContainerDiv.children.item(1);
+                    applyButton.classList.add("trigger-apply");
+                    applyButton.addEventListener( 
+                        "click",
+                        () => {
+                            updateLocationOnBothForms( currentDetailName );
+                        }
+                    );
+
+                    // update new overlay details
+                    pastOvelayDetailsName = currentDetailName;
+                }
+
+            }
+        }
+    }, 100);
+
+
     // keeps track of changes
     var lastName = "";
-
     var srInterval = setInterval(() => {
 
         var srResults = document.getElementsByClassName("storerocket-result");
@@ -57,8 +101,8 @@
       ()=>{
         // Gets store rocket popup
         let storeRocketPopupAddress = document.getElementsByClassName("mapboxgl-popup-content");
-            let directionLink = document.getElementsByClassName("storerocket-popup-buttons-get-directions");
-            var facilityLocationField = document.getElementById("wpforms-1707-field_14");
+        let directionLink = document.getElementsByClassName("storerocket-popup-buttons-get-directions");
+        var facilityLocationField = document.getElementById("wpforms-1707-field_14");
         
         if( directionLink.length < 1 ) { return; }
         
@@ -159,7 +203,7 @@
       },
       100   
     ); 
-      
+
     // click modal
     function openModalConnect() {
       let applyButton = document.getElementById("modal-connect");
@@ -179,7 +223,6 @@
             applyFormfacilityLocationField.value = locationName;
             applyFormfacilityLocationField.disabled = true;
         }
-        console.log("updateLocationOnBothForms() pressed", locationName);
     }
       
   </script>
