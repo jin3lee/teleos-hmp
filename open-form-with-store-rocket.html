@@ -7,7 +7,7 @@
 
         // make sure element is not null or empty
         if ( overlayElement && overlayElement.length > 0 ) {
-            let divContent = overlayElement[0]
+            let divContent = overlayElement[0];
             if ( divContent ) {
                 // get current detail name
                 let currentDetailName = divContent.children.item(0).innerText;
@@ -153,8 +153,8 @@
                                                     });
                                                 }
 
-                                                // if button is "Apply Today"
-                                                if ( greatGrandChild.innerHTML == "Apply Today" ) {
+                                                // if button is "Apply at this Location"
+                                                if ( greatGrandChild.innerHTML == "Apply at this Location" ) {
                                                     greatGrandChild.classList.add( "trigger-apply" );
                                                     greatGrandChild.addEventListener("click", ()=>{
                                                         updateLocationOnBothForms( locationName );
@@ -164,33 +164,7 @@
                                         }
                                     }
                                 }
-
-
-                                // div. storerocket-popup-location-buttons
-                                // a. storerocket-popup-location-button
-
-
-                                
-                                // check inner html
-                                // if innerHTML == Connect With Us -> open up modal-connect
-                                
-                                // else innerHTML == Apply Today -> open up modal-apply
                             }
-
-                        // change address to order here
-                        /*
-                        if( childAgain.className == "storerocket-popup-address" ) {
-                              childAgain.innerHTML = "<a id=\"" + buttonId + "\" class=\"" + buttonClassName + "\" style=\"font-size: 24px; font-weight: 700;\" href=\"#\" onclick=\"openModal\" >Connect Here</a>";
-                        
-                        }
-                        */
-                        
-                        // remove directions
-                        /*
-                        if( childAgain.className == "storerocket-popup-buttons-get-directions" ) {
-                              childAgain.remove();
-                        }
-                        */
                     }
                   
                     // update last modified popup indicator
@@ -211,8 +185,6 @@
     }
 
     function updateLocationOnBothForms( locationName ) {
-        let careerLocationField = document.getElementsByClassName("career-location-field");
-        let contactLocationField = document.getElementsByClassName("contact-location-field");
         let connectfacilityLocationField = document.getElementById("wpforms-1707-field_14");
         if( connectfacilityLocationField ) {
             connectfacilityLocationField.value = locationName;
