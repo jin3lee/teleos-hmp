@@ -67,29 +67,35 @@
                     // get sidemenu content
                     if ( gChild.childNodes ) {
 
-                        let locationName = gChild.children.item(0).innerText;
-                        let buttons = gChild.children.item(5);
-                        
-                        // add class to connect button
-                        let connectButton = buttons.children.item(0);
-                        connectButton.href = "javascript:void(0);";
-                        connectButton.classList.add( "trigger-connect" );
-                        connectButton.addEventListener( 
-                            "click",
-                            () => {
-                                updateLocationOnBothForms(locationName);
-                            }
-                        );
+                        console.log("taco", gChild.childNodes, gChild.children.item(0));
 
-                        let applyButton = buttons.children.item(1);
-                        applyButton.href = "javascript:void(0);";
-                        applyButton.classList.add( "trigger-apply" );
-                        applyButton.addEventListener( 
-                            "click",
-                            () => {
-                                updateLocationOnBothForms(locationName);
+                        if( gChild.children.item( 0 ) ) {
+                            let locationName = gChild.children.item(0).innerText;
+                            let buttons = gChild.children.item(5);
+                            
+                            // add class to connect button
+                            if ( buttons ) {
+                                let connectButton = buttons.children.item(0);
+                                connectButton.href = "javascript:void(0);";
+                                connectButton.classList.add( "trigger-connect" );
+                                connectButton.addEventListener( 
+                                    "click",
+                                    () => {
+                                        updateLocationOnBothForms(locationName);
+                                    }
+                                );
+
+                                let applyButton = buttons.children.item(1);
+                                applyButton.href = "javascript:void(0);";
+                                applyButton.classList.add( "trigger-apply" );
+                                applyButton.addEventListener( 
+                                    "click",
+                                    () => {
+                                        updateLocationOnBothForms(locationName);
+                                    }
+                                );
                             }
-                        );
+                        }
                     }
                 }
             }
@@ -190,14 +196,22 @@
 
     function updateLocationOnBothForms( locationName ) {
         
+        console.log("ALERT: locationNAME", locationName);
+
         // selects appropriate option in CONTACT FORM
         let connectfacilityLocationField = document.getElementById("wpforms-1707-field_16");
+        console.log("db1");
         if( connectfacilityLocationField ) {
-            let filterCity = locationName.replace("Schofield-Medical-", "").replace("HMP-","");
+            console.log("db2");
+            let filterCity = locationName.replace("Schofield-Medical", "").replace("HMP - ","").replace("-","");
+            filterCity = filterCity.replace(" ", "");
+            console.log("db3", "["+filterCity+"]");
             for ( var i = 0; i < connectfacilityLocationField.length; i++ ) {
                 let optionValue = connectfacilityLocationField.options[i].value;
                 let condition = optionValue.includes(filterCity);
+                console.log("db6", "["+optionValue+"]",  "["+filterCity+"]", condition);
                 if( condition ) {
+                    console.log("db7");
                     connectfacilityLocationField.options[i].selected = true;
                     break;    
                 }
@@ -206,7 +220,7 @@
 
         let applyFormfacilityLocationField = document.getElementById("wpforms-1785-field_27");
         if( applyFormfacilityLocationField ) {
-            let filterCity = locationName.replace("Schofield-Medical-", "").replace("HMP-","");
+            let filterCity = locationName.replace("Schofield-Medical", "").replace("HMP","").replace("-","").replace(" ", "");
             for ( var i = 0; i < applyFormfacilityLocationField.length; i++ ) {
                 let optionValue = applyFormfacilityLocationField.options[i].value;
                 let condition = optionValue.includes(filterCity);
