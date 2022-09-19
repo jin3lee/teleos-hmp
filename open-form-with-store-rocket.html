@@ -67,8 +67,6 @@
                     // get sidemenu content
                     if ( gChild.childNodes ) {
 
-                        console.log("taco", gChild.childNodes, gChild.children.item(0));
-
                         if( gChild.children.item( 0 ) ) {
                             let locationName = gChild.children.item(0).innerText;
                             let buttons = gChild.children.item(5);
@@ -195,23 +193,17 @@
     }
 
     function updateLocationOnBothForms( locationName ) {
-        
-        console.log("ALERT: locationNAME", locationName);
-
+        console.log("update clicked", locationName);
         // selects appropriate option in CONTACT FORM
         let connectfacilityLocationField = document.getElementById("wpforms-1707-field_16");
-        console.log("db1");
         if( connectfacilityLocationField ) {
-            console.log("db2");
-            let filterCity = locationName.replace("Schofield-Medical", "").replace("HMP - ","").replace("-","");
+            let filterCity = locationName.replace("Schofield-Medical", "").replace("HMP-", "").replace("HMP - ","").replace("-","");
             filterCity = filterCity.replace(" ", "");
-            console.log("db3", "["+filterCity+"]");
+            console.log("filter city ", locationName);
             for ( var i = 0; i < connectfacilityLocationField.length; i++ ) {
                 let optionValue = connectfacilityLocationField.options[i].value;
                 let condition = optionValue.includes(filterCity);
-                console.log("db6", "["+optionValue+"]",  "["+filterCity+"]", condition);
                 if( condition ) {
-                    console.log("db7");
                     connectfacilityLocationField.options[i].selected = true;
                     break;    
                 }
@@ -220,7 +212,9 @@
 
         let applyFormfacilityLocationField = document.getElementById("wpforms-1785-field_27");
         if( applyFormfacilityLocationField ) {
-            let filterCity = locationName.replace("Schofield-Medical", "").replace("HMP","").replace("-","").replace(" ", "");
+            let filterCity = locationName.replace("Schofield-Medical", "").replace("HMP-", "").replace("HMP - ","").replace("-","");
+            filterCity = filterCity.replace(" ", "");
+            console.log("filter city 2", locationName);
             for ( var i = 0; i < applyFormfacilityLocationField.length; i++ ) {
                 let optionValue = applyFormfacilityLocationField.options[i].value;
                 let condition = optionValue.includes(filterCity);
